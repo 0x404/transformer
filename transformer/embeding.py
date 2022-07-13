@@ -11,6 +11,7 @@ class PositionalEmbedding(nn.Module):
         d_model (int): dimension of word vector.
         max_len (int): max length of a sentence.
     """
+
     def __init__(self, d_model: int, max_len: int = 128):
         super().__init__()
 
@@ -38,7 +39,7 @@ class PositionalEmbedding(nn.Module):
         """
         if scaled:
             x = x * math.sqrt(x.size(-1))
-        x = x + self.pe[:, :x.size(1)]
+        x = x + self.pe[:, : x.size(1)]
         return x
 
 
