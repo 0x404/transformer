@@ -37,7 +37,7 @@ class DotProductAttention(nn.Module):
 
 
 class MultiHeadedAttention(nn.Module):
-    def __init__(self, num_head: int, d_model: int, dropout: float = 0.1):
+    def __init__(self, d_model: int, num_head: int, dropout: float = 0.1):
         """Multi head attention module.
 
         Args:
