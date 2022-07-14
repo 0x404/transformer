@@ -46,9 +46,11 @@ class TransformerEncoder(nn.Module):
         super().__init__()
         self.embed = nn.Embedding(vocab_size, d_model)
         self.pos_enc = PositionalEmbedding(d_model, max_len=max_len)
-        self.encoders = nn.Sequential(
-            TransformerEncoderBlock(d_model, num_head, d_ff=d_ff, dropout=dropout)
-            for _ in range(num_enc)
+        self.encoders = nn.ModuleList(
+            [
+                TransformerEncoderBlock(d_model, num_head, d_ff=d_ff, dropout=dropout)
+                for _ in range(num_enc)
+            ]
         )
 
     def forward(self, x, mask):
@@ -125,9 +127,11 @@ class TransformerDecoder(nn.Module):
         super().__init__()
         self.embed = nn.Embedding(vocab_size, d_model)
         self.pos_enc = PositionalEmbedding(d_model, max_len=max_len)
-        self.decoders = nn.Sequential(
-            TransformerDecoderBlock(d_model, num_head, d_ff=d_ff, dropout=dropout)
-            for _ in range(num_dec)
+        self.decoders = nn.ModuleList(
+            [
+                TransformerDecoderBlock(d_model, num_head, d_ff=d_ff, dropout=dropout)
+                for _ in range(num_dec)
+            ]
         )
 
     def forward(self, x, y, x_mask, y_mask):
